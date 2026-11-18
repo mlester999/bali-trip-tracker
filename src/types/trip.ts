@@ -6,6 +6,7 @@ export type ActivityGalleryKey =
   | "cretya-pool"
   | "bali-swing"
   | "atv"
+  | "rafting"
   | "monkey-forest"
   | "ubud-palace"
   | "ubud-market"

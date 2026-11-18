@@ -119,25 +119,30 @@ export const TRIP_DAYS: ItineraryDay[] = [
           mapsQuery: "Ayung River Rafting Ubud Bali",
         }),
         activity("2026-11-29-rafting", "12:00–2:30 PM", "Ayung River White-Water Rafting", {
+          imageGallery: "rafting",
           timeQualifier: "Est.",
           detail: "Plan for about two hours on the river plus briefing and exit time. Confirm the exact schedule with the tour operator.",
           mapsQuery: "Ayung River Rafting Ubud Bali",
         }),
       ]),
       group("afternoon", "Afternoon", [
-        activity("2026-11-29-lunch-transfer", "2:30–3:30 PM", "Late lunch and transfer back to Ubud", {
+        activity("2026-11-29-rafting-lunch", "2:30–3:15 PM", "Shower and lunch at the rafting finish point", {
+          timeQualifier: "Est.",
+          detail: "Bali Sobek lists lunch, showers, and towels at the finish point. Confirm your selected operator and package include them.",
+        }),
+        activity("2026-11-29-lunch-transfer", "3:15–3:45 PM", "Transfer back to Ubud", {
           timeQualifier: "Est.",
         }),
-        activity("2026-11-29-monkey-forest", "3:30–4:30 PM", "Sacred Monkey Forest Sanctuary", {
+        activity("2026-11-29-monkey-forest", "3:45–4:45 PM", "Sacred Monkey Forest Sanctuary", {
           imageGallery: "monkey-forest",
           mapsQuery: "Sacred Monkey Forest Sanctuary Ubud",
         }),
-        activity("2026-11-29-ubud-palace", "4:30–5:30 PM", "Ubud Palace", {
+        activity("2026-11-29-ubud-palace", "4:45–5:30 PM", "Ubud Palace", {
           imageGallery: "ubud-palace",
           mapsQuery: "Ubud Palace Bali",
           detail: "Shared sightseeing window with the traditional market.",
         }),
-        activity("2026-11-29-ubud-market", "4:30–5:30 PM", "Ubud Traditional Market", {
+        activity("2026-11-29-ubud-market", "4:45–5:30 PM", "Ubud Traditional Market", {
           imageGallery: "ubud-market",
           mapsQuery: "Ubud Traditional Market Bali",
           detail: "Shared sightseeing window with Ubud Palace.",
@@ -264,7 +269,7 @@ export const IMMIGRATION_DAYS: ImmigrationDay[] = [
     date: "November 29, 2026",
     weekday: "Sunday",
     details: [
-      "Tandem ATV Adventure, Ayung River white-water rafting, Sacred Monkey Forest Sanctuary, Ubud Palace and Traditional Market, and a café stop.",
+      "Tandem ATV Adventure, Ayung River white-water rafting with lunch at the finish point (confirm the package includes lunch), Sacred Monkey Forest Sanctuary, Ubud Palace and Traditional Market, and a café stop.",
       "Accommodation in Ubud.",
     ],
   },

@@ -79,6 +79,18 @@ export const ACTIVITY_GALLERIES: Record<ActivityGalleryKey, ActivityPhoto[]> = {
       caption: "Tandem ATV · stream crossing",
     },
   ],
+  rafting: [
+    {
+      src: "/images/ubud-rafting-1.webp",
+      alt: "Illustrative view of travelers rafting through a tropical Ayung River gorge",
+      caption: "Ayung River · illustrative rafting scene",
+    },
+    {
+      src: "/images/ubud-rafting-2.webp",
+      alt: "Illustrative view of an Ayung River raft passing a jungle waterfall",
+      caption: "Ayung River · jungle waterfall",
+    },
+  ],
   "monkey-forest": [
     {
       src: "/images/ubud-monkey-forest.webp",
