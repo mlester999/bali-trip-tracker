@@ -18,9 +18,9 @@ const DEFAULT_TRIP_SETTINGS: TravelerSettings = {
   outboundFlight: "",
   returnFlight: "",
   ubudHotelName: "Kamandhani Hotel Ubud",
-  ubudHotelAddress: "",
+  ubudHotelAddress: "Jl. Premasanti No. 17, Pengosekan, Ubud, Gianyar, Bali, Indonesia",
   seminyakHotelName: "Lloyd's Inn Bali",
-  seminyakHotelAddress: "",
+  seminyakHotelAddress: "Jl. Double Six, Seminyak, Kuta Selatan, Badung, Bali 80361, Indonesia",
 };
 
 const DEFAULT_SETTINGS = JSON.stringify(DEFAULT_TRIP_SETTINGS);
