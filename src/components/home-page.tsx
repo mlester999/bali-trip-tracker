@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useSyncExternalStore } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowLeft,
   ArrowRight,
@@ -17,6 +18,7 @@ import {
 } from "lucide-react";
 import { TRIP_DAYS } from "@/data/itinerary";
 import { useTravel } from "@/components/travel-provider";
+import { ActivityPhotoPreview } from "@/components/activity-photo-preview";
 import { getDayProgress, getTripProgress } from "@/lib/progress";
 import { googleMapsSearchUrl } from "@/lib/maps";
 import type { ActivityGroup, ItineraryDay } from "@/types/trip";
@@ -97,18 +99,30 @@ function ActivityList({
                     {activity.detail && <small className="activity-detail">{activity.detail}</small>}
                   </span>
                 </label>
-                {activity.mapsQuery && (
-                  <a
-                    aria-label={`Open ${activity.title} in Google Maps`}
-                    className="map-link"
-                    href={googleMapsSearchUrl(activity.mapsQuery)}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <MapPin aria-hidden="true" size={13} />
-                    <span>Open in Maps</span>
-                    <ArrowUpRight aria-hidden="true" size={12} />
-                  </a>
+                {(activity.imageGallery || activity.mapsQuery) && (
+                  <div className="activity-actions">
+                    {activity.imageGallery && (
+                      <ActivityPhotoPreview
+                        activityId={activity.id}
+                        activityTitle={activity.title}
+                        galleryKey={activity.imageGallery}
+                        initialIndex={activity.imageIndex}
+                      />
+                    )}
+                    {activity.mapsQuery && (
+                      <a
+                        aria-label={`Open ${activity.title} in Google Maps`}
+                        className="map-link"
+                        href={googleMapsSearchUrl(activity.mapsQuery)}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                      >
+                        <MapPin aria-hidden="true" size={13} />
+                        <span>Open in Maps</span>
+                        <ArrowUpRight aria-hidden="true" size={12} />
+                      </a>
+                    )}
+                  </div>
                 )}
               </li>
             );
@@ -175,22 +189,32 @@ export function HomePage() {
             </div>
           </div>
 
-          <div className="overview-progress">
-            <div className="overview-progress-copy">
-              <span>{isHydrated ? `${tripProgress.done} of ${tripProgress.total} activities` : "Loading saved progress…"}</span>
-              <strong>{isHydrated ? `${tripProgress.percent}%` : "—"}</strong>
+          <div className="trip-hero-visual">
+            <Image
+              alt="Sunrise over Bali rice terraces, palms, and distant volcanic hills"
+              className="trip-hero-image"
+              fill
+              priority
+              sizes="(max-width: 720px) calc(100vw - 36px), 300px"
+              src="/images/bali-hero.webp"
+            />
+            <div className="overview-progress">
+              <div className="overview-progress-copy">
+                <span>{isHydrated ? `${tripProgress.done} of ${tripProgress.total} activities` : "Loading saved progress…"}</span>
+                <strong>{isHydrated ? `${tripProgress.percent}%` : "—"}</strong>
+              </div>
+              <div
+                aria-label={isHydrated ? `${tripProgress.percent}% of planned activities complete` : "Loading saved progress"}
+                aria-valuemax={100}
+                aria-valuemin={0}
+                aria-valuenow={isHydrated ? tripProgress.percent : undefined}
+                className="progress-track"
+                role="progressbar"
+              >
+                <span style={{ width: isHydrated ? `${tripProgress.percent}%` : "0%" }} />
+              </div>
+              <span className="overview-progress-label">Your itinerary progress</span>
             </div>
-            <div
-              aria-label={isHydrated ? `${tripProgress.percent}% of planned activities complete` : "Loading saved progress"}
-              aria-valuemax={100}
-              aria-valuemin={0}
-              aria-valuenow={isHydrated ? tripProgress.percent : undefined}
-              className="progress-track"
-              role="progressbar"
-            >
-              <span style={{ width: isHydrated ? `${tripProgress.percent}%` : "0%" }} />
-            </div>
-            <span className="overview-progress-label">Your itinerary progress</span>
           </div>
         </div>
       </section>

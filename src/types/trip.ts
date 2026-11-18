@@ -1,10 +1,19 @@
 export type ActivityGroupKey = "morning" | "afternoon" | "evening" | "overnight";
+export type ActivityGalleryKey =
+  | "waterfalls"
+  | "rice-terraces"
+  | "cretya-pool"
+  | "atv"
+  | "ubud-exploration"
+  | "nusa-penida";
 
 export type ItineraryActivity = {
   id: string;
   title: string;
   time?: string;
   timeQualifier?: "Est." | "Target";
+  imageGallery?: ActivityGalleryKey;
+  imageIndex?: number;
   mapsQuery?: string;
   optional?: boolean;
   detail?: string;
