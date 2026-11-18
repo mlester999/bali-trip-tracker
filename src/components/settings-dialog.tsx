@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
-import { X } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { useTravel } from "@/components/travel-provider";
 import type { TravelerSettings } from "@/types/trip";
 
@@ -38,15 +38,39 @@ export function SettingsDialog({ onClose }: { onClose: () => void }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [onClose]);
 
-  function updateField(field: keyof TravelerSettings, value: string) {
+  function updateField(field: Exclude<keyof TravelerSettings, "travelerNames">, value: string) {
     setDraft((current) => ({ ...current, [field]: value }));
+  }
+
+  function updateTravelerName(index: number, value: string) {
+    setDraft((current) => ({
+      ...current,
+      travelerNames: current.travelerNames.map((name, nameIndex) => nameIndex === index ? value : name),
+    }));
+  }
+
+  function addTraveler() {
+    setDraft((current) => ({ ...current, travelerNames: [...current.travelerNames, ""] }));
+  }
+
+  function removeTraveler(index: number) {
+    if (draft.travelerNames.length <= 1) return;
+    setDraft((current) => ({
+      ...current,
+      travelerNames: current.travelerNames.filter((_, nameIndex) => nameIndex !== index),
+    }));
   }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     saveSettings(
       Object.fromEntries(
-        Object.entries(draft).map(([key, value]) => [key, value.trim()]),
+        Object.entries(draft).map(([key, value]) => [
+          key,
+          Array.isArray(value)
+            ? value.map((name) => name.trim()).filter(Boolean)
+            : value.trim(),
+        ]),
       ) as TravelerSettings,
     );
     onClose();
@@ -78,21 +102,45 @@ export function SettingsDialog({ onClose }: { onClose: () => void }) {
         </div>
 
         <p className="settings-description">
-          Add only the details you want included in your travel itinerary. These stay in this browser.
+          Your trip details are prefilled. Changes you make here stay in this browser.
         </p>
 
         <form className="settings-form" onSubmit={handleSubmit}>
-          <label className="form-field" htmlFor="traveler-names">
-            <span>Traveler names</span>
-            <input
-              autoComplete="name"
-              id="traveler-names"
-              onChange={(event) => updateField("travelerNames", event.target.value)}
-              placeholder=""
-              type="text"
-              value={draft.travelerNames}
-            />
-          </label>
+          <fieldset className="settings-fieldset">
+            <legend>Travelers</legend>
+            <div className="settings-traveler-list">
+              {draft.travelerNames.map((name, index) => (
+                <div className="settings-traveler-row" key={`traveler-${index}`}>
+                  <label className="form-field" htmlFor={`traveler-name-${index}`}>
+                    <span>Traveler {index + 1}</span>
+                    <input
+                      autoComplete={index === 0 ? "name" : "off"}
+                      id={`traveler-name-${index}`}
+                      onChange={(event) => updateTravelerName(index, event.target.value)}
+                      type="text"
+                      value={name}
+                    />
+                  </label>
+                  <button
+                    aria-label={`Remove traveler ${index + 1}`}
+                    className="icon-button settings-remove-traveler"
+                    disabled={draft.travelerNames.length === 1}
+                    onClick={() => removeTraveler(index)}
+                    type="button"
+                  >
+                    <X aria-hidden="true" size={17} />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <button
+              className="button button-secondary settings-add-traveler"
+              onClick={addTraveler}
+              type="button"
+            >
+              <Plus aria-hidden="true" size={16} /> Add traveler
+            </button>
+          </fieldset>
 
           <fieldset className="settings-fieldset">
             <legend>Tour guide</legend>
@@ -187,7 +235,7 @@ export function SettingsDialog({ onClose }: { onClose: () => void }) {
           </fieldset>
 
           <div className="settings-dialog-footer">
-            <span className="settings-local-note">Saved on this device only.</span>
+            <span className="settings-local-note">Edits save on this device only.</span>
             <div className="button-row">
               <button className="button button-secondary" onClick={onClose} type="button">
                 Cancel

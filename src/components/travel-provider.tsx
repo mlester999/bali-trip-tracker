@@ -11,19 +11,19 @@ const SETTINGS_KEY = "our-bali-adventure-2026:traveler-settings:v1";
 const DEFAULT_PROGRESS = "{}";
 const DEFAULT_PREPARATION = "{}";
 
-export const EMPTY_SETTINGS: TravelerSettings = {
-  travelerNames: "",
-  tourGuideName: "",
-  tourGuideInstagram: "",
+const DEFAULT_TRIP_SETTINGS: TravelerSettings = {
+  travelerNames: ["Mark Lester Acak", "Mitchel Tapang"],
+  tourGuideName: "Dena Mang",
+  tourGuideInstagram: "https://www.instagram.com/dena.mang.7?lqvp=MW82ZHcwMzE1Y2Q4bg==",
   outboundFlight: "",
   returnFlight: "",
-  ubudHotelName: "",
+  ubudHotelName: "Kamandhani Hotel Ubud",
   ubudHotelAddress: "",
-  seminyakHotelName: "",
+  seminyakHotelName: "Lloyd's Inn Bali",
   seminyakHotelAddress: "",
 };
 
-const DEFAULT_SETTINGS = JSON.stringify(EMPTY_SETTINGS);
+const DEFAULT_SETTINGS = JSON.stringify(DEFAULT_TRIP_SETTINGS);
 let progressFallback = DEFAULT_PROGRESS;
 let preparationFallback = DEFAULT_PREPARATION;
 let settingsFallback = DEFAULT_SETTINGS;
@@ -57,23 +57,37 @@ function readProgress(snapshot: string): CompletionMap {
   }
 }
 
+function readTravelerNames(value: unknown): string[] {
+  const names = Array.isArray(value)
+    ? value.filter((name): name is string => typeof name === "string")
+    : typeof value === "string"
+      ? value.split(",")
+      : [];
+  const cleanedNames = names.map((name) => name.trim()).filter(Boolean);
+  return cleanedNames.length ? cleanedNames : [...DEFAULT_TRIP_SETTINGS.travelerNames];
+}
+
 function readSettings(snapshot: string): TravelerSettings {
   try {
     const value: unknown = JSON.parse(snapshot);
-    if (!isRecord(value)) return EMPTY_SETTINGS;
+    if (!isRecord(value)) return DEFAULT_TRIP_SETTINGS;
+    const readString = (key: Exclude<keyof TravelerSettings, "travelerNames">) =>
+      typeof value[key] === "string" && value[key].trim()
+        ? value[key] as string
+        : DEFAULT_TRIP_SETTINGS[key];
     return {
-      travelerNames: typeof value.travelerNames === "string" ? value.travelerNames : "",
-      tourGuideName: typeof value.tourGuideName === "string" ? value.tourGuideName : "",
-      tourGuideInstagram: typeof value.tourGuideInstagram === "string" ? value.tourGuideInstagram : "",
-      outboundFlight: typeof value.outboundFlight === "string" ? value.outboundFlight : "",
-      returnFlight: typeof value.returnFlight === "string" ? value.returnFlight : "",
-      ubudHotelName: typeof value.ubudHotelName === "string" ? value.ubudHotelName : "",
-      ubudHotelAddress: typeof value.ubudHotelAddress === "string" ? value.ubudHotelAddress : "",
-      seminyakHotelName: typeof value.seminyakHotelName === "string" ? value.seminyakHotelName : "",
-      seminyakHotelAddress: typeof value.seminyakHotelAddress === "string" ? value.seminyakHotelAddress : "",
+      travelerNames: readTravelerNames(value.travelerNames),
+      tourGuideName: readString("tourGuideName"),
+      tourGuideInstagram: readString("tourGuideInstagram"),
+      outboundFlight: readString("outboundFlight"),
+      returnFlight: readString("returnFlight"),
+      ubudHotelName: readString("ubudHotelName"),
+      ubudHotelAddress: readString("ubudHotelAddress"),
+      seminyakHotelName: readString("seminyakHotelName"),
+      seminyakHotelAddress: readString("seminyakHotelAddress"),
     };
   } catch {
-    return EMPTY_SETTINGS;
+    return DEFAULT_TRIP_SETTINGS;
   }
 }
 

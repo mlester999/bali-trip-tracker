@@ -19,8 +19,9 @@ function isInstagramProfileUrl(value: string) {
 
 function savedDetails(settings: TravelerSettings): OptionalDetail[] {
   const details: OptionalDetail[] = [];
-  if (settings.travelerNames.trim()) {
-    details.push({ label: "Travelers", value: settings.travelerNames.trim() });
+  const travelerNames = settings.travelerNames.map((name) => name.trim()).filter(Boolean);
+  if (travelerNames.length) {
+    details.push({ label: "Travelers", value: travelerNames.join(", ") });
   }
   const tourGuideName = settings.tourGuideName.trim();
   const tourGuideInstagram = settings.tourGuideInstagram.trim();

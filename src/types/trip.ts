@@ -46,7 +46,7 @@ export type ItineraryDay = {
 };
 
 export type TravelerSettings = {
-  travelerNames: string;
+  travelerNames: string[];
   tourGuideName: string;
   tourGuideInstagram: string;
   outboundFlight: string;
