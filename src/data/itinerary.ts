@@ -58,8 +58,8 @@ export const TRIP_DAYS: ItineraryDay[] = [
     accommodation: "Ubud",
     groups: [
       group("morning", "Morning", [
-        activity("2026-11-28-breakfast", "7:00 AM", "Breakfast and get ready"),
-        activity("2026-11-28-tour-pickup", "8:00 AM", "Waterfall tour pickup"),
+        activity("2026-11-28-breakfast", "5:30 AM", "Breakfast and get ready"),
+        activity("2026-11-28-tour-pickup", "6:30 AM", "Waterfall tour pickup"),
         activity("2026-11-28-kanto-lampo", "8:30–9:30 AM", "Kanto Lampo Waterfall", {
           imageGallery: "kanto-lampo",
           mapsQuery: "Kanto Lampo Waterfall Bali",
@@ -236,8 +236,8 @@ export const IMMIGRATION_DAYS: ImmigrationDay[] = [
     date: "November 27, 2026",
     weekday: "Friday",
     details: [
-      "8:00 PM departure from Manila to Bali.",
-      "Estimated arrival at Ngurah Rai International Airport: 11:30 PM–12:30 AM, followed by transfer to Ubud.",
+      "Depart from Manila to Bali.",
+      "Arrive at Ngurah Rai International Airport, clear immigration, collect baggage, meet the airport driver, and transfer to Ubud.",
     ],
   },
   {
@@ -245,7 +245,7 @@ export const IMMIGRATION_DAYS: ImmigrationDay[] = [
     date: "November 28, 2026",
     weekday: "Saturday",
     details: [
-      "8:00 AM tour pickup; planned visits: Kanto Lampo Waterfall (8:30–9:30 AM), Tibumana Waterfall (10:00–11:00 AM), Alas Harum Bali (12:00–1:00 PM), and Cretya Ubud (1:00–3:00 PM).",
+      "Waterfall tour pickup, then visits to Kanto Lampo Waterfall, Tibumana Waterfall, Alas Harum Bali, and Cretya Ubud.",
       "Accommodation in Ubud.",
     ],
   },
@@ -254,7 +254,7 @@ export const IMMIGRATION_DAYS: ImmigrationDay[] = [
     date: "November 29, 2026",
     weekday: "Sunday",
     details: [
-      "Tandem ATV Adventure (9:00–11:00 AM), Sacred Monkey Forest Sanctuary (12:00–1:30 PM), Ubud Palace and Traditional Market (1:30–2:30 PM), and café hopping (2:30–4:00 PM).",
+      "Tandem ATV Adventure, Sacred Monkey Forest Sanctuary, Ubud Palace and Traditional Market, and café hopping.",
       "Accommodation in Ubud.",
     ],
   },
@@ -263,9 +263,9 @@ export const IMMIGRATION_DAYS: ImmigrationDay[] = [
     date: "November 30, 2026",
     weekday: "Monday",
     details: [
-      "Travel from Ubud to Sanur Harbour (5:30–6:45 AM); target fast boat to Nusa Penida (7:30–8:15 AM).",
-      "Nusa Penida West Tour: Kelingking Beach Viewpoint (9:00–10:15 AM), Broken Beach and Angel's Billabong (11:00 AM–12:00 PM), and Crystal Bay (1:00–2:00 PM).",
-      "Target return fast boat to Sanur (3:30–4:15 PM), then transfer directly to Seminyak (5:00–6:30 PM) for evening leisure and accommodation.",
+      "Travel from Ubud to Sanur Harbour, then take the fast boat to Nusa Penida.",
+      "Nusa Penida West Tour: Kelingking Beach Viewpoint, Broken Beach and Angel's Billabong, and Crystal Bay.",
+      "Take the return fast boat to Sanur, then transfer directly to Seminyak for the evening and overnight stay.",
     ],
   },
   {
@@ -273,8 +273,8 @@ export const IMMIGRATION_DAYS: ImmigrationDay[] = [
     date: "December 1, 2026",
     weekday: "Tuesday",
     details: [
-      "Airport transfer pickup from Seminyak at 5:00 AM; target arrival at Ngurah Rai International Airport is 5:45–6:00 AM.",
-      "Flight back to Manila; return flight departure is at 8:35 AM.",
+      "Check out from the Seminyak hotel and transfer to Ngurah Rai International Airport.",
+      "Check in, clear departure immigration and security, then fly back to Manila.",
     ],
   },
 ];
