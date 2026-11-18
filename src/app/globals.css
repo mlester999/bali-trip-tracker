@@ -405,6 +405,10 @@ a { color: inherit; }
 .activity-group-title svg { color: var(--forest); }
 .activity-list { gap: 6px; }
 .activity-row { grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #e9eee8; border-radius: 10px; background: #fff; }
+.activity-row.has-time { grid-template-columns: 155px minmax(0, 1fr) auto; }
+.activity-time-wrap { display: flex; min-width: 0; flex-direction: column; align-items: flex-start; gap: 2px; }
+.activity-time { color: var(--forest); font-size: 13px; font-weight: 750; line-height: 1.3; white-space: nowrap; }
+.activity-time-note { color: #806d42; font-size: 11px; font-weight: 700; line-height: 1.25; }
 .activity-label { align-items: center; gap: 10px; }
 .activity-label input { width: 18px; height: 18px; margin: 0; accent-color: var(--forest); }
 .activity-title { color: var(--ink); font-size: 16px; font-weight: 530; line-height: 1.45; }
@@ -415,6 +419,7 @@ a { color: inherit; }
 .accommodation-note { margin: 13px 0 0; padding-top: 12px; border-color: #edf1ec; font-size: 14px; }
 .day-detail-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; padding-top: 13px; border-top: 1px solid #edf1ec; }
 .day-detail-footer .local-privacy-note { justify-content: flex-start; margin: 0; font-size: 11px; }
+.schedule-note { margin: 13px 0 0; color: var(--muted); font-size: 12px; line-height: 1.5; }
 .day-navigation-buttons { display: flex; justify-content: flex-end; gap: 7px; }
 .day-navigation-buttons .button { min-height: 42px; padding: 0 14px; }
 .form-field { font-size: 13px; }
@@ -470,9 +475,13 @@ a { color: inherit; }
   .day-detail-header { align-items: flex-start; gap: 10px; padding-bottom: 13px; }
   .day-date-line { font-size: 10px; }
   .day-detail-title { font-size: 24px; }
+  .schedule-note { margin-top: 11px; }
   .location-pill { margin-top: 2px; }
   .activity-groups { gap: 13px; padding-top: 14px; }
-  .activity-row { grid-template-columns: minmax(0, 1fr); gap: 5px; padding: 11px 11px; }
+  .activity-row, .activity-row.has-time { grid-template-columns: minmax(0, 1fr); gap: 5px; padding: 11px 11px; }
+  .activity-time-wrap { flex-direction: row; align-items: baseline; gap: 8px; }
+  .activity-time { font-size: 14px; }
+  .activity-time-note { font-size: 12px; }
   .activity-label { align-items: flex-start; }
   .activity-label input { margin-top: 1px; }
   .map-link { margin-left: 28px; font-size: 12px; }

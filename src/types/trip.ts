@@ -3,6 +3,8 @@ export type ActivityGroupKey = "morning" | "afternoon" | "evening" | "overnight"
 export type ItineraryActivity = {
   id: string;
   title: string;
+  time?: string;
+  timeQualifier?: "Est." | "Target";
   mapsQuery?: string;
   optional?: boolean;
   detail?: string;

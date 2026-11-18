@@ -6,6 +6,15 @@ const group = (
   activities: ActivityGroup["activities"],
 ): ActivityGroup => ({ key, label, activities });
 
+const activity = (
+  id: string,
+  time: string,
+  title: string,
+  options: Partial<Omit<ActivityGroup["activities"][number], "id" | "time" | "title">> & {
+    timeQualifier?: "Est." | "Target";
+  } = {},
+): ActivityGroup["activities"][number] => ({ id, time, title, ...options });
+
 export const TRIP_DAYS: ItineraryDay[] = [
   {
     id: "2026-11-27",
@@ -21,15 +30,19 @@ export const TRIP_DAYS: ItineraryDay[] = [
       group("morning", "Morning", []),
       group("afternoon", "Afternoon", []),
       group("evening", "Evening", [
-        { id: "2026-11-27-flight-to-bali", title: "Flight from Manila to Bali" },
+        activity("2026-11-27-flight-to-bali", "8:00 PM", "Flight from Manila to Bali"),
       ]),
       group("overnight", "Overnight", [
-        {
-          id: "2026-11-27-arrival-airport",
-          title: "Arrival at Ngurah Rai International Airport",
-        },
-        { id: "2026-11-27-transfer-ubud", title: "Airport transfer to Ubud" },
-        { id: "2026-11-27-accommodation-ubud", title: "Hotel accommodation in Ubud" },
+        activity(
+          "2026-11-27-arrival-airport",
+          "11:30 PM–12:30 AM",
+          "Arrival at Ngurah Rai International Airport",
+          { timeQualifier: "Est." },
+        ),
+        activity("2026-11-27-clear-immigration", "12:30–1:30 AM", "Clear immigration and collect baggage"),
+        activity("2026-11-27-meet-driver", "1:30–2:00 AM", "Meet airport driver"),
+        activity("2026-11-27-transfer-ubud", "2:00–3:30 AM", "Airport transfer to Ubud"),
+        activity("2026-11-27-accommodation-ubud", "3:30 AM", "Hotel check-in and rest"),
       ]),
     ],
   },
@@ -45,37 +58,35 @@ export const TRIP_DAYS: ItineraryDay[] = [
     accommodation: "Ubud",
     groups: [
       group("morning", "Morning", [
-        {
-          id: "2026-11-28-kanto-lampo",
-          title: "Kanto Lampo Waterfall",
+        activity("2026-11-28-breakfast", "7:00 AM", "Breakfast and get ready"),
+        activity("2026-11-28-tour-pickup", "8:00 AM", "Waterfall tour pickup"),
+        activity("2026-11-28-kanto-lampo", "8:30–9:30 AM", "Kanto Lampo Waterfall", {
           mapsQuery: "Kanto Lampo Waterfall Bali",
-        },
-        {
-          id: "2026-11-28-tibumana",
-          title: "Tibumana Waterfall",
+        }),
+        activity("2026-11-28-tibumana", "10:00–11:00 AM", "Tibumana Waterfall", {
           mapsQuery: "Tibumana Waterfall Bali",
-        },
+        }),
+        activity("2026-11-28-lunch-transfer", "11:00 AM–12:00 PM", "Lunch and transfer", {
+          timeQualifier: "Est.",
+        }),
       ]),
       group("afternoon", "Afternoon", [
-        {
-          id: "2026-11-28-alas-harum",
-          title: "Alas Harum Bali Rice Terraces",
+        activity("2026-11-28-alas-harum", "12:00–1:00 PM", "Alas Harum Bali Rice Terraces", {
           mapsQuery: "Alas Harum Bali",
-        },
-        {
-          id: "2026-11-28-cretya",
-          title: "Cretya Ubud Infinity Pool",
-          mapsQuery: "Cretya Ubud Bali",
-        },
-        {
-          id: "2026-11-28-bali-swing",
-          title: "Bali Swing",
+        }),
+        activity("2026-11-28-bali-swing", "12:00–1:00 PM", "Bali Swing", {
           mapsQuery: "Bali Swing Ubud",
           optional: true,
-        },
+          detail: "Optional stop at Alas Harum.",
+        }),
+        activity("2026-11-28-cretya", "1:00–3:00 PM", "Cretya Ubud Infinity Pool", {
+          mapsQuery: "Cretya Ubud Bali",
+        }),
+        activity("2026-11-28-tour-dropoff", "3:00–3:30 PM", "Tour drop-off"),
+        activity("2026-11-28-rest-ubud", "4:00–6:00 PM", "Rest at the hotel"),
       ]),
       group("evening", "Evening", [
-        { id: "2026-11-28-dinner-ubud", title: "Dinner and leisure in Ubud" },
+        activity("2026-11-28-dinner-ubud", "6:30–8:00 PM", "Dinner and leisure in Ubud"),
       ]),
     ],
   },
@@ -91,36 +102,36 @@ export const TRIP_DAYS: ItineraryDay[] = [
     accommodation: "Ubud",
     groups: [
       group("morning", "Morning", [
-        {
-          id: "2026-11-29-atv",
-          title: "Tandem ATV Adventure",
+        activity("2026-11-29-breakfast", "7:30 AM", "Breakfast"),
+        activity("2026-11-29-atv-departure", "8:30 AM", "Depart for the ATV adventure"),
+        activity("2026-11-29-atv", "9:00–11:00 AM", "Tandem ATV Adventure", {
           mapsQuery: "Tandem ATV Adventure Ubud Bali",
-        },
+        }),
+        activity("2026-11-29-lunch-transfer", "11:00 AM–12:00 PM", "Lunch and transfer", {
+          timeQualifier: "Est.",
+        }),
       ]),
       group("afternoon", "Afternoon", [
-        {
-          id: "2026-11-29-monkey-forest",
-          title: "Sacred Monkey Forest Sanctuary",
+        activity("2026-11-29-monkey-forest", "12:00–1:30 PM", "Sacred Monkey Forest Sanctuary", {
           mapsQuery: "Sacred Monkey Forest Sanctuary Ubud",
-        },
-        {
-          id: "2026-11-29-ubud-palace",
-          title: "Ubud Palace",
+        }),
+        activity("2026-11-29-ubud-palace", "1:30–2:30 PM", "Ubud Palace", {
           mapsQuery: "Ubud Palace Bali",
-        },
-        {
-          id: "2026-11-29-ubud-market",
-          title: "Ubud Traditional Market",
+          detail: "Shared sightseeing window with the traditional market.",
+        }),
+        activity("2026-11-29-ubud-market", "1:30–2:30 PM", "Ubud Traditional Market", {
           mapsQuery: "Ubud Traditional Market Bali",
-        },
-        {
-          id: "2026-11-29-cafes",
-          title: "Café hopping in Ubud",
+          detail: "Shared sightseeing window with Ubud Palace.",
+        }),
+        activity("2026-11-29-cafes", "2:30–4:00 PM", "Café hopping in Ubud", {
           mapsQuery: "cafes in Ubud Bali",
-        },
+        }),
+        activity("2026-11-29-rest-ubud", "4:00–6:00 PM", "Rest at the hotel"),
       ]),
       group("evening", "Evening", [
-        { id: "2026-11-29-dinner-ubud", title: "Dinner and leisure in Ubud" },
+        activity("2026-11-29-dinner-ubud", "6:00–7:30 PM", "Dinner and leisure in Ubud"),
+        activity("2026-11-29-pack", "7:30–8:30 PM", "Pack for Nusa Penida"),
+        activity("2026-11-29-sleep", "9:00 PM", "Sleep early"),
       ]),
     ],
   },
@@ -136,35 +147,45 @@ export const TRIP_DAYS: ItineraryDay[] = [
     accommodation: "Seminyak",
     groups: [
       group("morning", "Morning", [
-        { id: "2026-11-30-ubud-sanur", title: "Travel from Ubud to Sanur Harbour" },
-        { id: "2026-11-30-fast-boat-outbound", title: "Fast boat to Nusa Penida" },
-        {
-          id: "2026-11-30-kelingking",
-          title: "Kelingking Beach Viewpoint",
+        activity("2026-11-30-wakeup", "5:00 AM", "Wake up and check out"),
+        activity("2026-11-30-ubud-sanur", "5:30–6:45 AM", "Travel from Ubud to Sanur Harbour"),
+        activity("2026-11-30-boat-checkin", "6:45–7:30 AM", "Boat check-in"),
+        activity("2026-11-30-fast-boat-outbound", "7:30–8:15 AM", "Fast boat to Nusa Penida", {
+          timeQualifier: "Target",
+        }),
+        activity("2026-11-30-meet-island-driver", "8:15–9:00 AM", "Meet island driver"),
+        activity("2026-11-30-kelingking", "9:00–10:15 AM", "Kelingking Beach Viewpoint", {
           mapsQuery: "Kelingking Beach Viewpoint Nusa Penida",
-        },
+        }),
+        activity("2026-11-30-drive-next-stop", "10:15–11:00 AM", "Drive to the next stop"),
       ]),
       group("afternoon", "Afternoon", [
-        {
-          id: "2026-11-30-broken-beach",
-          title: "Broken Beach",
+        activity("2026-11-30-broken-beach", "11:00 AM–12:00 PM", "Broken Beach", {
           mapsQuery: "Broken Beach Nusa Penida",
-        },
-        {
-          id: "2026-11-30-angels-billabong",
-          title: "Angel's Billabong",
+          detail: "Shared visit window with Angel's Billabong.",
+        }),
+        activity("2026-11-30-angels-billabong", "11:00 AM–12:00 PM", "Angel's Billabong", {
           mapsQuery: "Angel's Billabong Nusa Penida",
-        },
-        {
-          id: "2026-11-30-crystal-bay",
-          title: "Crystal Bay",
+          detail: "Shared visit window with Broken Beach.",
+        }),
+        activity("2026-11-30-lunch", "12:00–1:00 PM", "Lunch and transfer", {
+          timeQualifier: "Est.",
+        }),
+        activity("2026-11-30-crystal-bay", "1:00–2:00 PM", "Crystal Bay", {
           mapsQuery: "Crystal Bay Nusa Penida",
-        },
-        { id: "2026-11-30-fast-boat-return", title: "Return fast boat to Sanur" },
-        { id: "2026-11-30-transfer-seminyak", title: "Transfer directly to Seminyak" },
+        }),
+        activity("2026-11-30-return-harbour", "2:00–3:00 PM", "Return to the island harbour"),
+        activity("2026-11-30-fast-boat-return", "3:30–4:15 PM", "Return fast boat to Sanur", {
+          timeQualifier: "Target",
+        }),
+        activity("2026-11-30-collect-bags", "4:15–5:00 PM", "Collect bags and meet the driver"),
+        activity("2026-11-30-transfer-seminyak", "5:00–6:30 PM", "Transfer directly to Seminyak"),
       ]),
       group("evening", "Evening", [
-        { id: "2026-11-30-dinner-seminyak", title: "Dinner and leisure in Seminyak" },
+        activity("2026-11-30-hotel-checkin", "6:30–7:00 PM", "Seminyak hotel check-in"),
+        activity("2026-11-30-dinner-seminyak", "7:00–8:00 PM", "Dinner and leisure in Seminyak"),
+        activity("2026-11-30-pack-flight", "8:00–9:00 PM", "Pack for the flight"),
+        activity("2026-11-30-sleep", "9:00 PM", "Sleep early"),
       ]),
     ],
   },
@@ -179,15 +200,15 @@ export const TRIP_DAYS: ItineraryDay[] = [
     shortTitle: "Return to Manila",
     groups: [
       group("morning", "Morning", [
-        {
-          id: "2026-12-01-transfer-airport",
-          title: "Early morning transfer from Seminyak to Ngurah Rai International Airport",
-        },
-        {
-          id: "2026-12-01-flight-to-manila",
-          title: "Flight back to Manila",
-          detail: "Return flight departure: 8:35 AM",
-        },
+        activity("2026-12-01-wakeup", "4:15 AM", "Wake up and pack"),
+        activity("2026-12-01-checkout", "4:45 AM", "Hotel check-out"),
+        activity("2026-12-01-transfer-airport", "5:00 AM", "Airport driver pickup and transfer from Seminyak"),
+        activity("2026-12-01-arrive-airport", "5:45–6:00 AM", "Arrive at Ngurah Rai International Airport", {
+          timeQualifier: "Target",
+        }),
+        activity("2026-12-01-airport-checkin", "6:00–7:30 AM", "Check-in, immigration, and security"),
+        activity("2026-12-01-gate", "7:30–8:00 AM", "Proceed to the gate"),
+        activity("2026-12-01-flight-to-manila", "8:35 AM", "Flight back to Manila"),
       ]),
       group("afternoon", "Afternoon", []),
       group("evening", "Evening", []),
@@ -201,8 +222,8 @@ export const IMMIGRATION_DAYS: ImmigrationDay[] = [
     date: "November 27, 2026",
     weekday: "Friday",
     details: [
-      "Departure from Manila to Bali.",
-      "On arrival at Ngurah Rai International Airport, transfer to Ubud for hotel accommodation.",
+      "8:00 PM departure from Manila to Bali.",
+      "Estimated arrival at Ngurah Rai International Airport: 11:30 PM–12:30 AM, followed by transfer to Ubud.",
     ],
   },
   {
@@ -210,7 +231,7 @@ export const IMMIGRATION_DAYS: ImmigrationDay[] = [
     date: "November 28, 2026",
     weekday: "Saturday",
     details: [
-      "Kanto Lampo Waterfall, Tibumana Waterfall, Alas Harum Bali, and Cretya Ubud.",
+      "8:00 AM tour pickup; planned visits: Kanto Lampo Waterfall (8:30–9:30 AM), Tibumana Waterfall (10:00–11:00 AM), Alas Harum Bali (12:00–1:00 PM), and Cretya Ubud (1:00–3:00 PM).",
       "Accommodation in Ubud.",
     ],
   },
@@ -219,7 +240,7 @@ export const IMMIGRATION_DAYS: ImmigrationDay[] = [
     date: "November 29, 2026",
     weekday: "Sunday",
     details: [
-      "Tandem ATV Adventure, Sacred Monkey Forest Sanctuary, Ubud Palace, and Ubud Traditional Market.",
+      "Tandem ATV Adventure (9:00–11:00 AM), Sacred Monkey Forest Sanctuary (12:00–1:30 PM), Ubud Palace and Traditional Market (1:30–2:30 PM), and café hopping (2:30–4:00 PM).",
       "Accommodation in Ubud.",
     ],
   },
@@ -228,9 +249,9 @@ export const IMMIGRATION_DAYS: ImmigrationDay[] = [
     date: "November 30, 2026",
     weekday: "Monday",
     details: [
-      "Travel from Ubud to Sanur Harbour and take a fast boat to Nusa Penida.",
-      "Nusa Penida West Tour: Kelingking Beach Viewpoint, Broken Beach, Angel's Billabong, and Crystal Bay.",
-      "Return to Sanur and transfer directly to Seminyak for evening leisure and accommodation.",
+      "Travel from Ubud to Sanur Harbour (5:30–6:45 AM); target fast boat to Nusa Penida (7:30–8:15 AM).",
+      "Nusa Penida West Tour: Kelingking Beach Viewpoint (9:00–10:15 AM), Broken Beach and Angel's Billabong (11:00 AM–12:00 PM), and Crystal Bay (1:00–2:00 PM).",
+      "Target return fast boat to Sanur (3:30–4:15 PM), then transfer directly to Seminyak (5:00–6:30 PM) for evening leisure and accommodation.",
     ],
   },
   {
@@ -238,7 +259,7 @@ export const IMMIGRATION_DAYS: ImmigrationDay[] = [
     date: "December 1, 2026",
     weekday: "Tuesday",
     details: [
-      "Early morning transfer from Seminyak to Ngurah Rai International Airport.",
+      "Airport transfer pickup from Seminyak at 5:00 AM; target arrival at Ngurah Rai International Airport is 5:45–6:00 AM.",
       "Flight back to Manila; return flight departure is at 8:35 AM.",
     ],
   },

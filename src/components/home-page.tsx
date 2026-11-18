@@ -76,7 +76,13 @@ function ActivityList({
             const isComplete = Boolean(completed[activity.id]);
             const checkboxId = `activity-${activity.id}`;
             return (
-              <li className={`activity-row${isComplete ? " is-complete" : ""}`} key={activity.id}>
+              <li className={`activity-row${activity.time ? " has-time" : ""}${isComplete ? " is-complete" : ""}`} key={activity.id}>
+                {activity.time && (
+                  <div className="activity-time-wrap">
+                    <span className="activity-time">{activity.time}</span>
+                    {activity.timeQualifier && <small className="activity-time-note">{activity.timeQualifier}</small>}
+                  </div>
+                )}
                 <label className="activity-label" htmlFor={checkboxId}>
                   <input
                     checked={isComplete}
@@ -243,6 +249,8 @@ export function HomePage() {
               <span className="location-pill"><MapPin aria-hidden="true" size={13} />{selectedDay.accommodation}</span>
             )}
           </header>
+
+          <p className="schedule-note">Planned times follow your schedule; estimates and target sailing windows are marked.</p>
 
           <div className="day-progress-summary">
             <span>{isHydrated ? `${dayProgress.done} of ${dayProgress.total} activities complete` : "Loading day progress…"}</span>
