@@ -1,0 +1,8 @@
+node_modules/
+.next/
+out/
+dist/
+coverage/
+*.tsbuildinfo
+.superdesign/tmp/
+bali-trip-tracker-scaffold/
