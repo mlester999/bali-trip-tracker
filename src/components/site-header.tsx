@@ -14,7 +14,7 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className={`site-header no-print${pathname === "/itinerary" ? " is-document-header" : ""}`}>
+      <header className={`site-header no-print${pathname === "/itinerary" ? " is-document-header" : " is-home-header"}`}>
         <div className="site-header-inner">
           <Link aria-label="Our Bali Adventure 2026 home" className="brand-link" href="/">
             <span className="brand-mark"><Leaf aria-hidden="true" size={19} strokeWidth={1.8} /></span>
