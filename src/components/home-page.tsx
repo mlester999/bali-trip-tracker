@@ -19,6 +19,7 @@ import {
 import { TRIP_DAYS } from "@/data/itinerary";
 import { useTravel } from "@/components/travel-provider";
 import { ActivityPhotoPreview } from "@/components/activity-photo-preview";
+import { AirportPreparation } from "@/components/airport-preparation";
 import { getDayProgress, getTripProgress } from "@/lib/progress";
 import { googleMapsSearchUrl } from "@/lib/maps";
 import type { ActivityGroup, ItineraryDay } from "@/types/trip";
@@ -106,7 +107,6 @@ function ActivityList({
                         activityId={activity.id}
                         activityTitle={activity.title}
                         galleryKey={activity.imageGallery}
-                        initialIndex={activity.imageIndex}
                       />
                     )}
                     {activity.mapsQuery && (
@@ -219,8 +219,9 @@ export function HomePage() {
         </div>
       </section>
 
-      <div className="itinerary-content" id="daily-itinerary">
-        <div className="itinerary-heading-row">
+      <div className="itinerary-content">
+        <AirportPreparation />
+        <div className="itinerary-heading-row" id="daily-itinerary">
           <div>
             <p className="eyebrow">A little at a time</p>
             <h2 className="section-heading">The days ahead</h2>

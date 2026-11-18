@@ -61,11 +61,11 @@ export const TRIP_DAYS: ItineraryDay[] = [
         activity("2026-11-28-breakfast", "7:00 AM", "Breakfast and get ready"),
         activity("2026-11-28-tour-pickup", "8:00 AM", "Waterfall tour pickup"),
         activity("2026-11-28-kanto-lampo", "8:30–9:30 AM", "Kanto Lampo Waterfall", {
-          imageGallery: "waterfalls",
+          imageGallery: "kanto-lampo",
           mapsQuery: "Kanto Lampo Waterfall Bali",
         }),
         activity("2026-11-28-tibumana", "10:00–11:00 AM", "Tibumana Waterfall", {
-          imageGallery: "waterfalls",
+          imageGallery: "tibumana",
           mapsQuery: "Tibumana Waterfall Bali",
         }),
         activity("2026-11-28-lunch-transfer", "11:00 AM–12:00 PM", "Lunch and transfer", {
@@ -74,11 +74,11 @@ export const TRIP_DAYS: ItineraryDay[] = [
       ]),
       group("afternoon", "Afternoon", [
         activity("2026-11-28-alas-harum", "12:00–1:00 PM", "Alas Harum Bali Rice Terraces", {
-          imageGallery: "rice-terraces",
+          imageGallery: "alas-harum",
           mapsQuery: "Alas Harum Bali",
         }),
         activity("2026-11-28-bali-swing", "12:00–1:00 PM", "Bali Swing", {
-          imageGallery: "rice-terraces",
+          imageGallery: "bali-swing",
           mapsQuery: "Bali Swing Ubud",
           optional: true,
           detail: "Optional stop at Alas Harum.",
@@ -119,22 +119,21 @@ export const TRIP_DAYS: ItineraryDay[] = [
       ]),
       group("afternoon", "Afternoon", [
         activity("2026-11-29-monkey-forest", "12:00–1:30 PM", "Sacred Monkey Forest Sanctuary", {
-          imageGallery: "ubud-exploration",
-          imageIndex: 1,
+          imageGallery: "monkey-forest",
           mapsQuery: "Sacred Monkey Forest Sanctuary Ubud",
         }),
         activity("2026-11-29-ubud-palace", "1:30–2:30 PM", "Ubud Palace", {
-          imageGallery: "ubud-exploration",
+          imageGallery: "ubud-palace",
           mapsQuery: "Ubud Palace Bali",
           detail: "Shared sightseeing window with the traditional market.",
         }),
         activity("2026-11-29-ubud-market", "1:30–2:30 PM", "Ubud Traditional Market", {
-          imageGallery: "ubud-exploration",
+          imageGallery: "ubud-market",
           mapsQuery: "Ubud Traditional Market Bali",
           detail: "Shared sightseeing window with Ubud Palace.",
         }),
         activity("2026-11-29-cafes", "2:30–4:00 PM", "Café hopping in Ubud", {
-          imageGallery: "ubud-exploration",
+          imageGallery: "ubud-cafe",
           mapsQuery: "cafes in Ubud Bali",
         }),
         activity("2026-11-29-rest-ubud", "4:00–6:00 PM", "Rest at the hotel"),
@@ -166,22 +165,19 @@ export const TRIP_DAYS: ItineraryDay[] = [
         }),
         activity("2026-11-30-meet-island-driver", "8:15–9:00 AM", "Meet island driver"),
         activity("2026-11-30-kelingking", "9:00–10:15 AM", "Kelingking Beach Viewpoint", {
-          imageGallery: "nusa-penida",
-          imageIndex: 0,
+          imageGallery: "kelingking",
           mapsQuery: "Kelingking Beach Viewpoint Nusa Penida",
         }),
         activity("2026-11-30-drive-next-stop", "10:15–11:00 AM", "Drive to the next stop"),
       ]),
       group("afternoon", "Afternoon", [
         activity("2026-11-30-broken-beach", "11:00 AM–12:00 PM", "Broken Beach", {
-          imageGallery: "nusa-penida",
-          imageIndex: 1,
+          imageGallery: "broken-beach",
           mapsQuery: "Broken Beach Nusa Penida",
           detail: "Shared visit window with Angel's Billabong.",
         }),
         activity("2026-11-30-angels-billabong", "11:00 AM–12:00 PM", "Angel's Billabong", {
-          imageGallery: "nusa-penida",
-          imageIndex: 1,
+          imageGallery: "angels-billabong",
           mapsQuery: "Angel's Billabong Nusa Penida",
           detail: "Shared visit window with Broken Beach.",
         }),
@@ -189,8 +185,7 @@ export const TRIP_DAYS: ItineraryDay[] = [
           timeQualifier: "Est.",
         }),
         activity("2026-11-30-crystal-bay", "1:00–2:00 PM", "Crystal Bay", {
-          imageGallery: "nusa-penida",
-          imageIndex: 2,
+          imageGallery: "crystal-bay",
           mapsQuery: "Crystal Bay Nusa Penida",
         }),
         activity("2026-11-30-return-harbour", "2:00–3:00 PM", "Return to the island harbour"),

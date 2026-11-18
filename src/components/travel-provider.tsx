@@ -6,8 +6,10 @@ import type { TravelerSettings } from "@/types/trip";
 import type { CompletionMap } from "@/lib/progress";
 
 const PROGRESS_KEY = "our-bali-adventure-2026:activity-progress:v1";
+const PREPARATION_KEY = "our-bali-adventure-2026:departure-checklist:v1";
 const SETTINGS_KEY = "our-bali-adventure-2026:traveler-settings:v1";
 const DEFAULT_PROGRESS = "{}";
+const DEFAULT_PREPARATION = "{}";
 
 export const EMPTY_SETTINGS: TravelerSettings = {
   travelerNames: "",
@@ -21,14 +23,17 @@ export const EMPTY_SETTINGS: TravelerSettings = {
 
 const DEFAULT_SETTINGS = JSON.stringify(EMPTY_SETTINGS);
 let progressFallback = DEFAULT_PROGRESS;
+let preparationFallback = DEFAULT_PREPARATION;
 let settingsFallback = DEFAULT_SETTINGS;
 const localListeners = new Set<() => void>();
 
 type TravelContextValue = {
   completed: CompletionMap;
+  departureChecks: CompletionMap;
   isHydrated: boolean;
   settings: TravelerSettings;
   toggleActivity: (activityId: string) => void;
+  toggleDepartureCheck: (checkId: string) => void;
   saveSettings: (settings: TravelerSettings) => void;
 };
 
@@ -93,6 +98,7 @@ function notifyLocalDataChanged() {
 
 function saveSnapshot(key: string, value: string) {
   if (key === PROGRESS_KEY) progressFallback = value;
+  else if (key === PREPARATION_KEY) preparationFallback = value;
   else settingsFallback = value;
   try {
     window.localStorage.setItem(key, value);
@@ -120,6 +126,11 @@ export function TravelProvider({ children }: { children: ReactNode }) {
     () => getStoredSnapshot(PROGRESS_KEY, progressFallback),
     () => DEFAULT_PROGRESS,
   );
+  const preparationSnapshot = useSyncExternalStore(
+    subscribeToLocalData,
+    () => getStoredSnapshot(PREPARATION_KEY, preparationFallback),
+    () => DEFAULT_PREPARATION,
+  );
   const settingsSnapshot = useSyncExternalStore(
     subscribeToLocalData,
     () => getStoredSnapshot(SETTINGS_KEY, settingsFallback),
@@ -138,6 +149,13 @@ export function TravelProvider({ children }: { children: ReactNode }) {
     saveSnapshot(PROGRESS_KEY, JSON.stringify(next));
   }, []);
 
+  const toggleDepartureCheck = useCallback((checkId: string) => {
+    const next = readProgress(getStoredSnapshot(PREPARATION_KEY, preparationFallback));
+    if (next[checkId]) delete next[checkId];
+    else next[checkId] = true;
+    saveSnapshot(PREPARATION_KEY, JSON.stringify(next));
+  }, []);
+
   const saveSettings = useCallback((settings: TravelerSettings) => {
     saveSnapshot(SETTINGS_KEY, JSON.stringify(settings));
   }, []);
@@ -145,12 +163,14 @@ export function TravelProvider({ children }: { children: ReactNode }) {
   const value = useMemo<TravelContextValue>(
     () => ({
       completed: readProgress(progressSnapshot),
+      departureChecks: readProgress(preparationSnapshot),
       isHydrated,
       settings: readSettings(settingsSnapshot),
       toggleActivity,
+      toggleDepartureCheck,
       saveSettings,
     }),
-    [isHydrated, progressSnapshot, saveSettings, settingsSnapshot, toggleActivity],
+    [isHydrated, preparationSnapshot, progressSnapshot, saveSettings, settingsSnapshot, toggleActivity, toggleDepartureCheck],
   );
 
   return <TravelContext.Provider value={value}>{children}</TravelContext.Provider>;

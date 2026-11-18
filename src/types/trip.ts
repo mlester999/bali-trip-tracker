@@ -1,11 +1,19 @@
 export type ActivityGroupKey = "morning" | "afternoon" | "evening" | "overnight";
 export type ActivityGalleryKey =
-  | "waterfalls"
-  | "rice-terraces"
+  | "kanto-lampo"
+  | "tibumana"
+  | "alas-harum"
   | "cretya-pool"
+  | "bali-swing"
   | "atv"
-  | "ubud-exploration"
-  | "nusa-penida";
+  | "monkey-forest"
+  | "ubud-palace"
+  | "ubud-market"
+  | "ubud-cafe"
+  | "kelingking"
+  | "broken-beach"
+  | "angels-billabong"
+  | "crystal-bay";
 
 export type ItineraryActivity = {
   id: string;
@@ -13,7 +21,6 @@ export type ItineraryActivity = {
   time?: string;
   timeQualifier?: "Est." | "Target";
   imageGallery?: ActivityGalleryKey;
-  imageIndex?: number;
   mapsQuery?: string;
   optional?: boolean;
   detail?: string;
