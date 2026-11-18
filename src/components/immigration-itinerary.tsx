@@ -6,12 +6,30 @@ import { IMMIGRATION_DAYS } from "@/data/itinerary";
 import { useTravel } from "@/components/travel-provider";
 import type { TravelerSettings } from "@/types/trip";
 
-type OptionalDetail = { label: string; value: string };
+type OptionalDetail = { label: string; value: string; link?: string };
+
+function isInstagramProfileUrl(value: string) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" && url.hostname === "www.instagram.com";
+  } catch {
+    return false;
+  }
+}
 
 function savedDetails(settings: TravelerSettings): OptionalDetail[] {
   const details: OptionalDetail[] = [];
   if (settings.travelerNames.trim()) {
     details.push({ label: "Travelers", value: settings.travelerNames.trim() });
+  }
+  const tourGuideName = settings.tourGuideName.trim();
+  const tourGuideInstagram = settings.tourGuideInstagram.trim();
+  if (tourGuideName || tourGuideInstagram) {
+    details.push({
+      label: "Tour guide",
+      value: tourGuideName,
+      ...(isInstagramProfileUrl(tourGuideInstagram) ? { link: tourGuideInstagram } : {}),
+    });
   }
   if (settings.outboundFlight.trim()) {
     details.push({ label: "Outbound flight number", value: settings.outboundFlight.trim() });
@@ -97,7 +115,11 @@ export function ImmigrationItinerary() {
         y += 3;
         addSectionHeading("Traveler and booking details");
         for (const detail of extraDetails) {
-          addText(`${detail.label}: ${detail.value}`, { size: 9.5, gapAfter: 1.5 });
+          const value = [
+            detail.value,
+            ...(detail.link ? [`Instagram: ${detail.link}`] : []),
+          ].filter(Boolean).join(" · ");
+          addText(`${detail.label}: ${value}`, { size: 9.5, gapAfter: 1.5 });
         }
       }
 
@@ -173,7 +195,15 @@ export function ImmigrationItinerary() {
               {extraDetails.map((detail) => (
                 <div key={detail.label}>
                   <dt>{detail.label}</dt>
-                  <dd>{detail.value}</dd>
+                  <dd>
+                    {detail.value}
+                    {detail.link && (
+                      <>
+                        {detail.value ? " · " : ""}
+                        <a href={detail.link} rel="noreferrer" target="_blank">Instagram profile</a>
+                      </>
+                    )}
+                  </dd>
                 </div>
               ))}
             </dl>

@@ -13,6 +13,8 @@ const DEFAULT_PREPARATION = "{}";
 
 export const EMPTY_SETTINGS: TravelerSettings = {
   travelerNames: "",
+  tourGuideName: "",
+  tourGuideInstagram: "",
   outboundFlight: "",
   returnFlight: "",
   ubudHotelName: "",
@@ -61,6 +63,8 @@ function readSettings(snapshot: string): TravelerSettings {
     if (!isRecord(value)) return EMPTY_SETTINGS;
     return {
       travelerNames: typeof value.travelerNames === "string" ? value.travelerNames : "",
+      tourGuideName: typeof value.tourGuideName === "string" ? value.tourGuideName : "",
+      tourGuideInstagram: typeof value.tourGuideInstagram === "string" ? value.tourGuideInstagram : "",
       outboundFlight: typeof value.outboundFlight === "string" ? value.outboundFlight : "",
       returnFlight: typeof value.returnFlight === "string" ? value.returnFlight : "",
       ubudHotelName: typeof value.ubudHotelName === "string" ? value.ubudHotelName : "",

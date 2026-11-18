@@ -47,6 +47,8 @@ export type ItineraryDay = {
 
 export type TravelerSettings = {
   travelerNames: string;
+  tourGuideName: string;
+  tourGuideInstagram: string;
   outboundFlight: string;
   returnFlight: string;
   ubudHotelName: string;

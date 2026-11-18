@@ -94,6 +94,33 @@ export function SettingsDialog({ onClose }: { onClose: () => void }) {
             />
           </label>
 
+          <fieldset className="settings-fieldset">
+            <legend>Tour guide</legend>
+            <label className="form-field" htmlFor="tour-guide-name">
+              <span>Name</span>
+              <input
+                autoComplete="name"
+                id="tour-guide-name"
+                onChange={(event) => updateField("tourGuideName", event.target.value)}
+                type="text"
+                value={draft.tourGuideName}
+              />
+            </label>
+            <label className="form-field" htmlFor="tour-guide-instagram">
+              <span>Instagram profile link</span>
+              <input
+                autoCapitalize="none"
+                autoComplete="url"
+                id="tour-guide-instagram"
+                onChange={(event) => updateField("tourGuideInstagram", event.target.value)}
+                placeholder="https://www.instagram.com/…"
+                spellCheck={false}
+                type="url"
+                value={draft.tourGuideInstagram}
+              />
+            </label>
+          </fieldset>
+
           <div className="settings-field-pair">
             <label className="form-field" htmlFor="outbound-flight">
               <span>Outbound flight number</span>
